@@ -5,6 +5,7 @@
         <TargetFramework>net5.0</TargetFramework>
         <WarnOn>3390;$(WarnOn)</WarnOn>
         <LangVersion>latestmajor</LangVersion>
+        <SatelliteResourceLanguages>en</SatelliteResourceLanguages>
     </PropertyGroup>
 
     <ItemGroup>
