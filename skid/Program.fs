@@ -2,17 +2,18 @@ let die msg =
     printf $"Error: {msg}"
     exit 1
 
-let printpass str =
-    printf $"{str}"
-    str
-
 [<EntryPoint>]
 let main argv =
     let config =
-        Skid.Cli.getApplicationConfiguration [| "--value-file"
-                                                "D:/dev/skidtest/base.json"
-                                                "--recursive"
-                                                "D:/dev/skidtest" |]
+        Skid.Cli.getApplicationConfiguration argv
+
+//    let x =
+//        [| "--file"
+//               "D:/dev/skidtest/base.json"
+//               "--file"
+//               "D:/dev/skidtest/override.json"
+//               "--recursive"
+//               "D:/dev/skidtest/config.toml.skid" |]
 
     for path in config.ValueFiles do
         if not (Skid.Io.pathExists path) then
@@ -41,7 +42,7 @@ let main argv =
             |> dict
 
         printfn $"Templating {skidFile} ({List.length marks} marks)"
-        
+
         Skid.Templating.replaceAllMarks skidFile content marks values
         |> Skid.Io.writeFile (Skid.Io.trimExtension skidFile)
 

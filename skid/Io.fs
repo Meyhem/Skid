@@ -13,7 +13,7 @@ let isDir path =
 let isFile path = path |> isDir |> not
 let loadFile path = File.ReadAllText path
 let writeFile path content = File.WriteAllText(path, content)
-let trimExtension (path: string) = Regex.Replace(path, "\.\w+$", "")
+let trimExtension (path: string) = Regex("\.skid$", RegexOptions.IgnoreCase).Replace(path, "")
 
 let listSkidFiles path recursive =
     Directory.EnumerateFiles(

@@ -3,16 +3,16 @@
 open Argu
 
 type CliArgs =
-    | [<Mandatory; AltCommandLine("-f")>] Value_File of path: string
+    | [<Mandatory; AltCommandLine("-f")>] File of path: string
     | [<AltCommandLine("-r"); Unique>] Recursive
     | [<MainCommand; ExactlyOnce>] Target of targetPath: string
 
     interface IArgParserTemplate with
         member s.Usage =
             match s with
-            | Value_File _ -> "Value file path to use"
+            | File _ -> "Value file path to use"
             | Recursive _ -> "Recurse into subdirectories if Target is directory"
-            | Target _ -> "Target file or directory to run transformation"
+            | Target _ -> "Target skid file or directory to run transformation. In case of directory, it searches all '*.skid' files"
 
 type ApplicationConfiguration =
     { ValueFiles: string []
@@ -27,7 +27,7 @@ let getApplicationConfiguration argv =
 
     let config: ApplicationConfiguration =
         {
-          ValueFiles = results.GetResults Value_File |> List.toArray //argsToValueFiles (List.toSeq args)
+          ValueFiles = results.GetResults File |> List.toArray //argsToValueFiles (List.toSeq args)
           Target = results.GetResult Target // argsToTarget args
           Recursive =
               results.GetResults Recursive
