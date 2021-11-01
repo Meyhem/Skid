@@ -7,13 +7,12 @@ let main argv =
     let config =
         Skid.Cli.getApplicationConfiguration argv
 
-//    let x =
-//        [| "--file"
-//               "D:/dev/skidtest/base.json"
-//               "--file"
-//               "D:/dev/skidtest/override.json"
-//               "--recursive"
-//               "D:/dev/skidtest/config.toml.skid" |]
+//    let config = Skid.Cli.getApplicationConfiguration [| "--file"
+//                                                         "D:/dev/skidtest/base.json"
+//                                                         "--file"
+//                                                         "D:/dev/skidtest/override.json"
+//                                                         "--recursive"
+//                                                         "D:/dev/skidtest/config.toml.skid" |]
 
     for path in config.ValueFiles do
         if not (Skid.Io.pathExists path) then
@@ -29,7 +28,7 @@ let main argv =
 
     for skidFile in skidFiles do
         let content = Skid.Io.loadFile skidFile
-        let marks = Skid.Templating.findAllMarks content
+        let marks = Skid.Templating.findAllMarks content config.MarkStart config.MarkEnd
 
         let values =
             marks
