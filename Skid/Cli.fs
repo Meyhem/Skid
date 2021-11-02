@@ -12,10 +12,10 @@ type CliArgs =
     interface IArgParserTemplate with
         member s.Usage =
             match s with
-            | File _ -> "Json value file path to use"
-            | Recursive _ -> "Recurse into subdirectories if Target is directory"
+            | File _ -> "Json value file path to load (can be specified multiple times)"
+            | Recursive _ -> "Recurse into subdirectories if <target> is directory"
             | Target _ ->
-                "Target skid file or directory to run transformation. In case of directory, it searches all '*.skid' files"
+                "Target skid file or directory to run templating on. In case of directory, it searches all '*.skid' files"
             | Mark_Start _ -> "Characters that denote start of value interpolation. Default is '{{'"
             | Mark_End _ -> "Characters that denote end of value interpolation. Default is '}}'"
 
