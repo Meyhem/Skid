@@ -1,6 +1,6 @@
 # Skid
 
-Simple, portable CLI utility for configuration templating of all text-based config formats.
+Simple, single-file portable CLI utility for configuration templating of all text-based config formats.
 
 ### [Download here](https://github.com/Meyhem/Skid/releases/latest)
 
