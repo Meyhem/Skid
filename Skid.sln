@@ -2,6 +2,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Skid", "Skid\Skid.fsproj", "{424BAB05-0F32-4A42-BB40-B565C4BA997E}"
 EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Skid.Test", "Skid.Test\Skid.Test.fsproj", "{5A5188A7-A275-4884-815E-B857339DCA8E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +14,9 @@ Global
 		{424BAB05-0F32-4A42-BB40-B565C4BA997E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{424BAB05-0F32-4A42-BB40-B565C4BA997E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{424BAB05-0F32-4A42-BB40-B565C4BA997E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5A5188A7-A275-4884-815E-B857339DCA8E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A5188A7-A275-4884-815E-B857339DCA8E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A5188A7-A275-4884-815E-B857339DCA8E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A5188A7-A275-4884-815E-B857339DCA8E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

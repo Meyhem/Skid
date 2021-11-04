@@ -19,11 +19,14 @@ type CliArgs =
             | Mark_Start _ -> "Characters that denote start of value interpolation. Default is '{{'"
             | Mark_End _ -> "Characters that denote end of value interpolation. Default is '}}'"
 
-type SkidExit() =
+type SkidExit(exitOnError : bool) =
     interface IExiter with
         member this.Exit(msg, _) =
-            printfn $"{msg}"
-            exit 1
+            if exitOnError then
+                printfn $"{msg}"
+                exit 1
+            else
+                failwith $"msg"
 
         member this.Name = "skid"
 
@@ -34,9 +37,9 @@ type ApplicationConfiguration =
       MarkStart: string
       MarkEnd: string }
 
-let getApplicationConfiguration argv =
+let getApplicationConfiguration exitOnError argv =
     let parser =
-        ArgumentParser.Create<CliArgs>(programName = "skid", errorHandler = SkidExit())
+        ArgumentParser.Create<CliArgs>(programName = "skid", errorHandler = SkidExit(exitOnError))
 
     let results = parser.Parse argv
 

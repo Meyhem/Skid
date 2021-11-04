@@ -5,7 +5,7 @@ let die msg =
 [<EntryPoint>]
 let main argv =
     let config =
-        Skid.Cli.getApplicationConfiguration argv
+        Skid.Cli.getApplicationConfiguration true argv
 
 //    let config = Skid.Cli.getApplicationConfiguration [| "--file"
 //                                                         "D:/dev/skidtest/base.json"
