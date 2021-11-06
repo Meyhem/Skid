@@ -23,7 +23,7 @@ let extractCaptures (groups: GroupCollection) =
         None
 
 let findAllMarks templateString markStart markEnd =
-    Regex.Matches(templateString, $"{markStart}\s*(!)?\s*(.*)\s*{markEnd}")
+    Regex.Matches(templateString, $"{Regex.Escape(markStart)}\s*(!)?\s*(.*?)\s*{Regex.Escape(markEnd)}")
     |> Seq.cast
     |> Seq.toList
     |> List.map (fun (m: Match) -> extractCaptures m.Groups)

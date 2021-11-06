@@ -1,4 +1,4 @@
-module Tests
+module Skid.Test.Cli
 
 open System
 open System.Linq
