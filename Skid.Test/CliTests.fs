@@ -11,7 +11,6 @@ let ``Parses basic config`` () =
 
     Assert.True(cfg.ValueFiles.Length = 1)
     Assert.Equal("file.json", cfg.ValueFiles.[0])
-
     Assert.Equal("target-dir", cfg.Target)
 
 [<Fact>]
