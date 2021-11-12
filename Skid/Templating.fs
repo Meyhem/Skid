@@ -30,15 +30,16 @@ let findAllMarks templateString markStart markEnd =
     |> List.choose id
 
 let replaceAllMarks (path : string) (templateString : string) (marks: TemplateMark list) (values: IDictionary<string, string>)  =
-    let builder = StringBuilder(templateString) 
+    let builder = StringBuilder(templateString)
+    let mutable warnings = []
     for mark in marks do
         let hasValueForJsonPath, value = values.TryGetValue mark.JsonPath
 
         if mark.Required && not(hasValueForJsonPath) then
-            printfn $"<!> missing required value '{mark.JsonPath}' used in '{path}'"
+            warnings <- warnings @ [ $"<!> missing required value '{mark.JsonPath}' used in '{path}'" ]
 
         let replacement = if hasValueForJsonPath then value else ""
 
         builder.Replace(mark.MatchedExpression, replacement) |> ignore
 
-    builder.ToString() 
+    builder.ToString(), warnings

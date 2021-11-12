@@ -42,7 +42,14 @@ let main argv =
 
         printfn $"Templating {skidFile} ({List.length marks} marks)"
 
-        Skid.Templating.replaceAllMarks skidFile content marks values
-        |> Skid.Io.writeFile (Skid.Io.trimExtension skidFile)
+        let rendered, warnings = Skid.Templating.replaceAllMarks skidFile content marks values
+        for w in warnings do
+            printfn $"{w}"
+            
+        rendered |> Skid.Io.writeFile (Skid.Io.trimExtension skidFile)
+        
+        if config.Prune && warnings.Length = 0 then
+            printfn $"Deleting {skidFile}"
+            Skid.Io.deleteFile skidFile
 
     0

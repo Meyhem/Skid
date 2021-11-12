@@ -5,6 +5,7 @@ open Argu
 type CliArgs =
     | [<Mandatory; AltCommandLine("-f")>] File of path: string
     | [<AltCommandLine("-r"); Unique>] Recursive
+    | [<AltCommandLine("-p"); Unique>] Prune
     | [<Unique>] Mark_Start of markStart: string
     | [<Unique>] Mark_End of markEnd: string
     | [<MainCommand; ExactlyOnce>] Target of targetPath: string
@@ -14,6 +15,7 @@ type CliArgs =
             match s with
             | File _ -> "Json value file path to load (can be specified multiple times)"
             | Recursive _ -> "Recurse into subdirectories if <target> is directory"
+            | Prune _ -> "Delete .skid file template after templating succeeded without error"
             | Target _ ->
                 "Target skid file or directory to run templating on. In case of directory, it searches all '*.skid' files"
             | Mark_Start _ -> "Characters that denote start of value interpolation. Default is '{{'"
@@ -34,6 +36,7 @@ type ApplicationConfiguration =
     { ValueFiles: string []
       Target: string
       Recursive: bool
+      Prune: bool
       MarkStart: string
       MarkEnd: string }
 
@@ -49,6 +52,8 @@ let getApplicationConfiguration exitOnError argv =
           Recursive =
               results.GetResults Recursive
               |> List.contains Recursive
+          Prune = results.GetResults Prune
+              |> List.contains Prune
           MarkStart = results.GetResult (Mark_Start, "{{")
           MarkEnd = results.GetResult (Mark_End, "}}") }
 

@@ -12,6 +12,7 @@ let isDir path =
 
 let isFile path = path |> isDir |> not
 let loadFile path = File.ReadAllText path
+let deleteFile path = File.Delete path
 let writeFile path content = File.WriteAllText(path, content)
 let trimExtension (path: string) = Regex("\.skid$", RegexOptions.IgnoreCase).Replace(path, "")
 

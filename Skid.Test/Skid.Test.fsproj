@@ -1,15 +1,17 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net5.0</TargetFramework>
+        <TargetFramework>net6.0</TargetFramework>
 
         <IsPackable>false</IsPackable>
         <GenerateProgramFile>false</GenerateProgramFile>
+        <LangVersion>latestmajor</LangVersion>
     </PropertyGroup>
 
     <ItemGroup>
         <Compile Include="CliTests.fs" />
         <Compile Include="TemplatingTests.fs" />
+        <Compile Include="JsonTests.fs" />
         <Compile Include="Program.fs" />
     </ItemGroup>
 

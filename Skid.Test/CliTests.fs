@@ -21,6 +21,7 @@ let ``Sets defaults`` () =
     Assert.False(cfg.Recursive)
     Assert.Equal("{{", cfg.MarkStart)
     Assert.Equal("}}", cfg.MarkEnd)
+    Assert.False(cfg.Prune)
 
 [<Fact>]
 let ``Accepts multiple value files in order`` () =
@@ -57,7 +58,7 @@ let ``Fails when no value file provided`` () =
     |> ignore
 
 [<Fact>]
-let ``Fails when no target  provided`` () =
+let ``Fails when no target provided`` () =
     Assert.Throws(
         Action
             (fun x ->

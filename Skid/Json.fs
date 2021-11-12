@@ -4,7 +4,6 @@ open System.Text
 open Newtonsoft.Json.Linq
 
 let parse (jsonString: string) : JObject = JObject.Parse(jsonString)
-let selectProp (path: string) (root: JObject) = root.SelectToken(path).ToString()
 
 let selectMergedProp (path: string) (root: JObject []) =
     root
