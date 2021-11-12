@@ -10,6 +10,7 @@ Simple, single-file portable CLI utility for configuration templating of all tex
 - [Features](#features)
   * [Mandatory values](#mandatory-values)
   * [Recursive running](#recursive-running)
+  * [Pruning templates](#pruning-templates)
   * [Multiple value files overrides](#multiple-value-files-overrides)
   * [Custom formatting marks](#custom-formatting-marks)
   * [JSON Path selectors](#json-path-selectors)
@@ -22,18 +23,18 @@ configuration templates. With single command you can create instantly configured
 
 ## Usage
 ```
-USAGE: skid [--help] --file <path> [--recursive] [--mark-start <markStart>] [--mark-end <markEnd>] <targetPath>
+USAGE: skid [--help] --file <path> [--recursive] [--prune] [--mark-start <markStart>] [--mark-end <markEnd>]
+            <targetPath>
 
 TARGET:
 
-    <targetPath>          Target skid file or directory to run templating on. In case of directory, it searches all '*.skid' files
-
+    <targetPath>          Target skid file or directory to run templating on. In case of directory, it searches all
+                          '*.skid' files
 OPTIONS:
-
     --file, -f <path>     Json value file path to load (can be specified multiple times)
     --recursive, -r       Recurse into subdirectories if <target> is directory
-    --mark-start <markStart>
-                          Characters that denote start of value interpolation. Default is '{{'
+    --prune, -p           Delete .skid file template after templating succeeded without error
+    --mark-start <markStart> Characters that denote start of value interpolation. Default is '{{'
     --mark-end <markEnd>  Characters that denote end of value interpolation. Default is '}}'
     --help                display this list of options.
 ```
@@ -43,7 +44,6 @@ OPTIONS:
 Lets assume you have ```config.xml``` file, that you want to have templatable for **local** and **prod** environments
 
 ```xml
-
 <config>
     <connectionString>Server=localhost;Database=MyDb;User=Tom;Password=Tom123</connectionString>
     <logLevel>Information</logLevel>
@@ -75,7 +75,6 @@ And ```prod.json``` and fill it with values:
 Then create template ```config.xml.skid``` file template from your config
 
 ```xml
-
 <config>
     <connectionString>{{!connectionString}}</connectionString>
     <logLevel>{{!logging.level}}</logLevel>
@@ -93,7 +92,6 @@ Which will render the values from ```local.json``` into ```config.xml.skid``` te
 with filled values
 
 ```xml
-
 <config>
     <connectionString>Server=localhost;Database=MyDb;User=Tom;Password=Tom123</connectionString>
     <logLevel>Information</logLevel>
@@ -111,7 +109,6 @@ Which will render the values from ```prod.json``` into ```config.xml.skid``` tem
 with filled values
 
 ```xml
-
 <config>
     <connectionString>Server=prodserver.com;Database=ProdDb;User=Tomtheprodadmin;Password=Tom123!</connectionString>
     <logLevel>Warning</logLevel>
@@ -149,6 +146,16 @@ You can specify the ```-r``` option to recursively scan target folder and its ch
 
 ```sh
 skid -r -f values.json my-app-package-with-deep-structure
+```
+
+### Pruning templates
+Skid allows you to pass ```--prune``` or ```-p``` option, which deletes .skid file templates
+after it's rendered without any error.  
+This feature is handy if you want to clear your deployment package of .skid templates after 
+they are used and are no longer needed.
+```sh
+skid -f values.json --prune config.xml.skid
+skid -f values.json -p config.xml.skid
 ```
 
 ### Multiple value files overrides
